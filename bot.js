@@ -1,8 +1,15 @@
 require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
+const express = require('express');
 
+const app = express();
+const PORT = process.env.PORT || 3000;
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+
+app.get('/', (req, res) => res.send('Cineflow Bot is running!'));
+app.get('/health', (req, res) => res.status(200).send('OK'));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 /* ================= CACHE ================= */
 const CACHE = new Map();
